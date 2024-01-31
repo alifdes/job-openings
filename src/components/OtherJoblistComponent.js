@@ -3,8 +3,8 @@ import JobCard from "../ui/JobCard";
 import { useJobs } from "../queries/jobs";
 import { HorizontalLine } from "../styles";
 
-const OtherJoblistComponent = ({ deptID }) => {
-  const filterData = { department: { value: deptID } };
+const OtherJoblistComponent = ( value ) => {
+  const filterData = { department:value};
   const { data: jobsData, isLoading } = useJobs(filterData);
 
   return (
@@ -15,12 +15,18 @@ const OtherJoblistComponent = ({ deptID }) => {
         <div>Loading...</div>
       ) : (
         <div>
-          {jobsData?.map((job, index) => (
+        {/* Render jobs if data is available */}
+        {jobsData && jobsData.length > 0 ? (
+          jobsData.map((job, index) => (
             <div key={index}>
               <JobCard title={job.title} location={job.location} id={job.id} show={false} />
             </div>
-          ))}
-        </div>
+          ))
+        ) : (
+          // Render message if no data is available
+          <div>No job openings </div>
+        )}
+      </div>
       )}
     </div>
   );
