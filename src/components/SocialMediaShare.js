@@ -26,10 +26,9 @@ const ShareContainer = styled.div`
   margin: 10px 20px;
 `;
 export function SocialMediaShare() {
-
-  const shareUrl =window.location.href;
+  const shareUrl = window.location.href;
   const title = "Job share";
-  
+
   console.log(shareUrl);
   return (
     <ShareContainer>

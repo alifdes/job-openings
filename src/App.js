@@ -3,7 +3,6 @@ import JobDetails from "./pages/JobDetails";
 import { QueryClient, QueryClientProvider } from "react-query";
 import JobListing from "./pages/JobsListing";
 
-
 const queryClient = new QueryClient();
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<JobListing />} />
-          <Route path="/jobs/:id" element={<JobDetails />}/>
+          <Route path="/jobs/:id" element={<JobDetails />} />
         </Routes>
       </div>
     </QueryClientProvider>

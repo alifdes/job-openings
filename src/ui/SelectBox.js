@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select, { components } from "react-select";
 
-
 const ClearIndicator = ({ clearValue, ...props }) => {
   return (
     <components.DropdownIndicator {...props}>
@@ -28,7 +27,6 @@ const customStyles = {
 };
 
 const SelectBox = ({ name, options, isloading, filterData, setFilterData }) => {
-
   const handleChange = (selectedOption) => {
     setFilterData((prevSelectedOption) => ({
       ...prevSelectedOption,
@@ -37,7 +35,9 @@ const SelectBox = ({ name, options, isloading, filterData, setFilterData }) => {
   };
   return (
     <Select
-      value={ JSON.stringify(filterData[name]) === '{}' ? null : filterData[name] }
+      value={
+        JSON.stringify(filterData[name]) === "{}" ? null : filterData[name]
+      }
       options={options}
       onChange={handleChange}
       placeholder={name.charAt(0).toUpperCase() + name.slice(1)}

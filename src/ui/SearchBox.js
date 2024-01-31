@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import { BsSearch, BsX } from "react-icons/bs";
 import styled from "styled-components";
 
-
-
 const SearchContainer = styled.div`
   position: relative;
   display: inline-block;
   width: 100%;
   margin-bottom: 20px;
-
 `;
 
 const SearchInput = styled.input`
@@ -50,7 +47,7 @@ const AutocompleteList = styled.ul`
   border: 1px solid #ccc;
   border-top: none;
   border-radius: 0 0 5px 5px;
-  z-index:99;
+  z-index: 99;
 `;
 
 const AutocompleteListItem = styled.li`
@@ -60,21 +57,25 @@ const AutocompleteListItem = styled.li`
     background-color: #f0f0f0;
   }
 `;
-function SearchBox({value, setValue,jobsData}) {
+function SearchBox({ value, setValue, jobsData }) {
   const handleInputChange = (e) => {
     setValue((prevSelectedOption) => ({
       ...prevSelectedOption,
-      searchString:e.target.value
+      searchString: e.target.value,
     }));
   };
 
   const clearQuery = () => {
     setValue((prevSelectedOption) => ({
       ...prevSelectedOption,
-      searchString:""
+      searchString: "",
     }));
   };
-  const filteredJobs = jobsData ? jobsData.filter(job => job.title.toLowerCase().includes(value?.toLowerCase())) : [];
+  const filteredJobs = jobsData
+    ? jobsData.filter((job) =>
+        job.title.toLowerCase().includes(value?.toLowerCase())
+      )
+    : [];
 
   return (
     <>
@@ -87,14 +88,19 @@ function SearchBox({value, setValue,jobsData}) {
         />
         {value ? <ClearIcon onClick={clearQuery} /> : <SearchIcon />}
         {value && value.length > 0 && (
-        <AutocompleteList>
-          {filteredJobs ? filteredJobs.map((job) => (
-            <AutocompleteListItem key={job.id}>{job.title}</AutocompleteListItem>
-          )) : <AutocompleteListItem key={0}> NO DATA </AutocompleteListItem>
-          }
-        </AutocompleteList>
-      )}
-        </SearchContainer>
+          <AutocompleteList>
+            {filteredJobs ? (
+              filteredJobs.map((job) => (
+                <AutocompleteListItem key={job.id}>
+                  {job.title}
+                </AutocompleteListItem>
+              ))
+            ) : (
+              <AutocompleteListItem key={0}> NO DATA </AutocompleteListItem>
+            )}
+          </AutocompleteList>
+        )}
+      </SearchContainer>
     </>
   );
 }

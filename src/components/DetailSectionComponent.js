@@ -11,7 +11,7 @@ const DetailSection = styled(Card.Text)`
   gap: 20px;
   flex-wrap: wrap;
   color: #46536f;
-  font-size: ${({ show }) => (show ? '15px' : '11px')};
+  font-size: ${({ show }) => (show ? "15px" : "11px")};
 `;
 const FullTimeText = styled.span`
   background: #d3d7e7;
