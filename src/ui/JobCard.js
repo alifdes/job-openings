@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaBuilding } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import DetailSectionComponent from "../components/DetailSectionComponent";
-
+import { Button } from "./Buttons";
 const StyledCard = styled(Card)`
+
   display: flex;
-  flex-direction: column;
-  margin: 20px;
-  margin-bottom:30px;
+    flex-direction: column;
+    margin: 20px 0;
+    margin-bottom: 30px;
 `;
 
 const StyledTitle = styled(Card.Title)`
@@ -32,7 +32,7 @@ const ButtonSection = styled.div`
     flex-wrap: wrap;
 
 `;
-const JobCard = ({ title, location,department,applyUrl, id }) => {
+const JobCard = ({ title, location,department,applyUrl, id, show=true }) => {
   const handleClick = () => {
     window.open(applyUrl, "_blank");
   };
@@ -40,11 +40,11 @@ const JobCard = ({ title, location,department,applyUrl, id }) => {
     <StyledCard>
       <StyledTitle>{title}</StyledTitle>
       <StyledBody>
-        <DetailSectionComponent location={location} department={department ? department : ""}/>
-        <ButtonSection>
-          <Button variant="primary" onClick={handleClick} >Apply</Button>
-          <Button variant="primary" > <Link to={`/jobs/${id}`}>View</Link></Button>
-        </ButtonSection>
+        <DetailSectionComponent location={location} department={department ? department : ""} show={show}/>
+       { show && <ButtonSection>
+          <Button color="#6297e5" border="1px solid #6297e5"  onClick={handleClick} >Apply</Button>
+          <Button color="#838787" > <Link to={`/jobs/${id}`}>View</Link></Button>
+        </ButtonSection>}
       </StyledBody>
     </StyledCard>
   );

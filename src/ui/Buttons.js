@@ -1,37 +1,33 @@
 import styled, { css } from "styled-components";
 
 const baseStyles = css`
-  color: ${(props) => props.textColor || "#FFFFFF"};
-  width: ${(props) => props.width || "100%"};
-  height: ${(props) => props.height || "40px"};
-  text-align: center;
-  margin: 0px 5px;
-  font-family: Montserrat Alternates-Bold;
+  color: ${(props) => props.color || "#FFFFFF"} !important;
+  width: ${(props) => props.width || "100px"};
+  background: ${(props) => props.background || "none"};
+  border: ${(props) => props.border || "none"} !important;
+  font-size: 12px;
+  height: 40px;
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0px;
   border-radius: 5px;
   outline: none;
   border: none;
+  border-radius: 100px;
   box-shadow: none;
+  padding: 10px 20px;
+  font-weight: bolder;
+  cursor: pointer;
   &:hover {
-    color: #ffffff;
+    color:${(props) => props.textColor || "black"};
     text-decoration: none;
   }
 `;
 
 export const Button = styled.button`
   ${baseStyles}
-  width:auto;
-  padding: 10px 20px;
-  background:${(props) =>
-    props.background ||
-    "transparent linear-gradient(270deg, #33c2df 0%, #0081c5 100%)"};
-`;
-
-export const BasicButton = styled.button`
-  ${baseStyles}
-  background:${(props) =>
-    props.background ||
-    "transparent linear-gradient(270deg, #33c2df 0%, #0081c5 100%)"};
+  width:{props.width };
+  background: {props.background };
+  color: {props.color };
+  border: { props.border };
 `;

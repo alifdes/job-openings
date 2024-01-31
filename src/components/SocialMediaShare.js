@@ -1,45 +1,63 @@
 import {
-  FacebookIcon,
   FacebookShareButton,
-  LinkedinIcon,
   LinkedinShareButton,
   TwitterShareButton,
-  XIcon
 } from "react-share";
+import styled from "styled-components";
+import { FaFacebookSquare, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { HorizontalLine } from "../styles";
 
+const CircleIcon = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid black;
+`;
 
-
+const Buttons = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+const ShareContainer = styled.div`
+  padding: 20px;
+  margin: 10px 20px;
+`;
 export function SocialMediaShare() {
-  const shareUrl = "http://github.com";
-  const title = "GitHub";
 
+  const shareUrl =window.location.href;
+  const title = "Job share";
+  
+  console.log(shareUrl);
   return (
-    <div className="Demo__container">
-      <div className="Demo__some-network">
-        <FacebookShareButton
-          url={shareUrl}
-          className="Demo__some-network__share-button"
-        >
-          <FacebookIcon size={32} round />
-        </FacebookShareButton>
-      </div>
-      <div className="Demo__some-network">
-        <LinkedinShareButton
-          url={shareUrl}
-          className="Demo__some-network__share-button"
-        >
-          <LinkedinIcon size={32} round />
-        </LinkedinShareButton>
-      </div>
-      <div className="Demo__some-network">
-        <TwitterShareButton
-          url={shareUrl}
-          title={title}
-          className="Demo__some-network__share-button"
-        >
-          <XIcon size={32} round />
-        </TwitterShareButton>
-      </div>
-    </div>
+    <ShareContainer>
+      <h1> SHARE JOB OPENINGS</h1>
+      <HorizontalLine />
+      <Buttons>
+        <div>
+          <FacebookShareButton url={shareUrl}>
+            <CircleIcon>
+              <FaFacebookSquare size={24} color="black" />
+            </CircleIcon>
+          </FacebookShareButton>
+        </div>
+        <div>
+          <LinkedinShareButton url={shareUrl}>
+            <CircleIcon>
+              <FaLinkedin size={24} color="black" />
+            </CircleIcon>{" "}
+          </LinkedinShareButton>
+        </div>
+        <div>
+          <TwitterShareButton url={shareUrl} title={title}>
+            <CircleIcon>
+              <FaTwitter size={24} color="black" />
+            </CircleIcon>
+          </TwitterShareButton>
+        </div>
+      </Buttons>
+    </ShareContainer>
   );
 }

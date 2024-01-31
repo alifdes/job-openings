@@ -1,68 +1,95 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import axios from "axios";
-import { useQuery } from "react-query";
+import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import DetailSectionComponent from "../components/DetailSectionComponent";
-import JobCard from "../ui/JobCard";
 import { SocialMediaShare } from "../components/SocialMediaShare";
 import OtherJoblistComponent from "../components/OtherJoblistComponent";
 import { useJob } from "../queries/jobs";
+import {
+  MainDiv,
+} from "../styles";
+import { Button } from "../ui/Buttons";
 
-const PageContainer = styled(Container)`
-  margin-top: 30px !important;
-  margin: 20px;
+const TopContainer = styled(Container)`
+      margin-top: 20px!important;
+    margin: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #dbdeeb;
+
 `;
-const BottomContainer = styled.div``;
+const BottomContainer = styled(Container)`
+    margin: 20px;
+    padding: 20px;
+    display:flex;
+`;
 const SubContainer = styled(Container)`
   padding: 20px;
   margin: 10px 20px;
   background-color: #f0f0f0;
-  width: 40%;
+
+  `;
+  const CompanyTitle = styled.span`
+font-size: 18px;
+    font-weight: bolder;
+`;
+const JobTitle = styled.h1`
+    font-size: 24px;
+    font-weight: bolder;
+`;
+const RightPanel = styled.div`
+width:500px;
+`;
+const LeftPanel = styled.div`
+width:100%;
 `;
 const JobDetails = () => {
-  const { id } = useParams(); 
-  const [data, setJobData] = useState(null);
-  const fetchJobs = async () => {
-    const response = await fetch("https://demo.jobsoid.com/api/v1/jobs");
-    if (!response.ok) {
-      throw new Error("Failed to fetch jobs");
-    }
-    return response.json();
-  };
-
-  const { data: jobsData, isLoading: jobsLoading } = useQuery(
-    "jobs",
-    fetchJobs
-  );
- 
+  const { id } = useParams();
+  const { data: jobData, isLoading } = useJob(id);
+  console.log(jobData);
 
   const handleClick = () => {
-    window.open(data.applyUrl, "_blank");
+    window.open(jobData.applyUrl, "_blank");
   };
 
   return (
-    <Container fluid>
-      <p>{data.company}</p>
-      <h1>{data.title}</h1>
+    <MainDiv>
+        {isLoading ? (
+          <div> Loading...</div>
+        ) : (
+          <>
+          <TopContainer>
+            <CompanyTitle>
+              {jobData.department && (
+                <>
+                  {jobData.department.title}
+                  {" for "}
+                </>
+              )}
+              {jobData.company}
+            </CompanyTitle>
+            <JobTitle>{jobData.title}</JobTitle>
+            <DetailSectionComponent location={jobData.location} />
+            <Button background="#6297e5" width="200px" onClick={handleClick} style={{ marginTop: "20px" }}>
+              Apply Now
+            </Button>
+            </TopContainer>
 
-      <DetailSectionComponent location={data.location} />
-      <Button variant="primary" onClick={handleClick}>
-        Apply Now
-      </Button>
-      <BottomContainer>
-        <div>
-          <span>Lorem ipsum dolor sit amet,</span>
-        </div>
-        <div>
-          <SubContainer>
-            <OtherJoblistComponent />
-          </SubContainer>
-          <SocialMediaShare />
-        </div>
-      </BottomContainer>
-    </Container>
+            <BottomContainer >
+              <LeftPanel>
+                <span>{jobData.description.replace(/<[^>]+>/g, '')}</span>
+              </LeftPanel>
+              <RightPanel>
+                <SubContainer>
+                  <OtherJoblistComponent />
+                </SubContainer>
+                <SocialMediaShare />
+              </RightPanel>
+            </BottomContainer>
+            </>
+        )}
+     
+    </MainDiv>
   );
 };
 

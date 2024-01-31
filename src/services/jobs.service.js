@@ -20,6 +20,7 @@ export const getJobs = async (filterData) => {
 
 
 export const getJob= async (ID) => {
+  console.log("ID",ID)
   try {
     const response = await axios.get(`${apiURL}/jobs/${ID}`);
     return response.data;
